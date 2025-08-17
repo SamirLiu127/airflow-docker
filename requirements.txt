@@ -1,0 +1,2 @@
+apache-airflow-providers-google
+pydantic-settings>=2.10.1
