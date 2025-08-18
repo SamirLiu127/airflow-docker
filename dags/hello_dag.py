@@ -13,7 +13,7 @@ def hello_config():
     print("Now is: ", datetime.now())
     try:
         config = get_config()  # 暫時註解掉
-        print(f"Database host: {config.database.host}")
+        print(f"Environment: {config.environment}")
         print("模擬配置載入成功")
         return "Config 載入成功 (模擬)"
     except Exception as e:
@@ -40,4 +40,4 @@ def hello_dag():
     hello_world() >> hello_config()
 
 # 建立 DAG 實例 
-hello_dag_instance = hello_dag()
+hello_dag()
