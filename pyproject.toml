@@ -8,4 +8,13 @@ dependencies = [
     "apache-airflow-providers-google>=17.1.0",
     "apache-airflow-providers-http>=5.3.3",
     "pydantic-settings>=2.10.1",
+    "requests>=2.32.4",
+]
+
+[tool.ruff]
+line-length = 120
+
+[dependency-groups]
+dev = [
+    "ruff>=0.12.9",
 ]

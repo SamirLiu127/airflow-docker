@@ -1,6 +1,6 @@
 # Data Mining Airflow 專案 Makefile
 
-.PHONY: help up down restart clean logs shell test build
+.PHONY: help up down restart clean logs shell test build lint
 .DEFAULT_GOAL := help
 
 # 顏色設定
@@ -24,7 +24,7 @@ help:
 	@echo ""
 	@echo "$(GREEN)⚡ 日常開發:$(RESET)"
 	@echo "  $(YELLOW)make dag-list$(RESET)               - 查看所有 DAG"
-	@echo "  $(YELLOW)make dag-trigger DAG_ID=simple_dag$(RESET) - 手動觸發 DAG"
+	@echo "  $(YELLOW)make dag-trigger DAG_ID=hello_dag$(RESET) - 手動觸發 DAG"
 	@echo "  $(YELLOW)make logs$(RESET)                   - 查看即時日誌"
 	@echo "  $(YELLOW)make shell$(RESET)                  - 進入 Airflow 容器"
 	@echo ""
@@ -33,6 +33,7 @@ help:
 	@echo "  $(YELLOW)make restart$(RESET)                - 重啟服務"
 	@echo "  $(YELLOW)make clean$(RESET)                  - 完全清理重置"
 	@echo "  $(YELLOW)make rebuild$(RESET)                - 重建映像檔並重啟"
+	@echo "  $(YELLOW)make lint$(RESET)                   - 執行 Python 程式碼檢查 (ruff)"
 	@echo ""
 	@echo "📱 $(BLUE)Web UI: http://localhost:8080$(RESET) (airflow/airflow)"
 
@@ -69,7 +70,7 @@ dag-list:
 
 dag-trigger:
 	@if [ -z "$(DAG_ID)" ]; then \
-		echo "$(RED)❌ 使用方法: make dag-trigger DAG_ID=simple_dag$(RESET)"; \
+		echo "$(RED)❌ 使用方法: make dag-trigger DAG_ID=hello_dag$(RESET)"; \
 		exit 1; \
 	fi
 	@echo "$(BLUE)🚀 觸發 DAG: $(DAG_ID)$(RESET)"
@@ -77,7 +78,7 @@ dag-trigger:
 
 dag-test:
 	@if [ -z "$(DAG_ID)" ]; then \
-		echo "$(RED)❌ 使用方法: make dag-test DAG_ID=simple_dag$(RESET)"; \
+		echo "$(RED)❌ 使用方法: make dag-test DAG_ID=hello_dag$(RESET)"; \
 		exit 1; \
 	fi
 	@echo "$(BLUE)🧪 測試 DAG: $(DAG_ID)$(RESET)"
@@ -102,3 +103,8 @@ quickstart: build up
 	@echo "等待服務啟動..."
 	@sleep 30
 	@echo "📱 請打開: http://localhost:8080"
+
+## 程式碼品質
+lint:
+	@echo "$(BLUE)🔍 執行 Python 程式碼檢查...$(RESET)"
+	ruff check .
