@@ -14,7 +14,6 @@ def hello_config():
     try:
         config = get_config()  # 暫時註解掉
         print(f"Database host: {config.database.host}")
-        print(f"ETL batch size: {config.etl.batch_size}")
         print("模擬配置載入成功")
         return "Config 載入成功 (模擬)"
     except Exception as e:

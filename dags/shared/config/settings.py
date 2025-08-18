@@ -48,7 +48,6 @@ def get_config() -> AppConfig:
     
     config = get_config()
     print(config.database.host)  # 從 .env 中讀取 DATABASE_HOST
-    print(config.etl.batch_size)  # 從 .env 中讀取 ETL_BATCH_SIZE
     """
     global _app_config
     if _app_config is None:
@@ -59,9 +58,6 @@ def get_config() -> AppConfig:
 def get_airflow_variable(key: str, default_value=None, deserialize_json: bool = False):
     """
     從 Airflow Variables 取得值，支援 fallback 到配置
-    
-    使用範例：
-    batch_size = get_airflow_variable('ETL_BATCH_SIZE', get_config().etl.batch_size)
     """
     try:
         return Variable.get(key, default_var=default_value, deserialize_json=deserialize_json)
