@@ -1,6 +1,6 @@
 # Data Mining Airflow 專案 Makefile
 
-.PHONY: help up down restart clean logs shell test build lint
+.PHONY: help up down restart clean logs shell test build lint lint-fix
 .DEFAULT_GOAL := help
 
 # 顏色設定
@@ -34,6 +34,7 @@ help:
 	@echo "  $(YELLOW)make clean$(RESET)                  - 完全清理重置"
 	@echo "  $(YELLOW)make rebuild$(RESET)                - 重建映像檔並重啟"
 	@echo "  $(YELLOW)make lint$(RESET)                   - 執行 Python 程式碼檢查 (ruff)"
+	@echo "  $(YELLOW)make lint-fix$(RESET)               - 自動修復 Python 程式碼問題 (ruff)"
 	@echo ""
 	@echo "📱 $(BLUE)Web UI: http://localhost:8080$(RESET) (airflow/airflow)"
 
@@ -108,3 +109,7 @@ quickstart: build up
 lint:
 	@echo "$(BLUE)🔍 執行 Python 程式碼檢查...$(RESET)"
 	ruff check .
+
+lint-fix:
+	@echo "$(BLUE)🔧 自動修復 Python 程式碼問題...$(RESET)"
+	ruff check --fix .
