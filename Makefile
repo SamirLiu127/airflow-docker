@@ -18,7 +18,8 @@ help:
 	@echo "$(BLUE)🚁 Airflow 開發工具$(RESET)"
 	@echo ""
 	@echo "$(GREEN)🚀 快速開始:$(RESET)"
-	@echo "  $(YELLOW)make quickstart$(RESET)              - 一鍵建立並啟動所有服務"
+	@echo "  $(YELLOW)make init-airflow$(RESET)           - 初始化 Airflow"
+	@echo "  $(YELLOW)make quickstart$(RESET)             - 一鍵建立並啟動所有服務"
 	@echo "  $(YELLOW)make up$(RESET)                     - 啟動已建立的服務"
 	@echo "  $(YELLOW)make down$(RESET)                   - 停止所有服務"
 	@echo ""
@@ -39,6 +40,11 @@ help:
 	@echo "📱 $(BLUE)Web UI: http://localhost:8080$(RESET) (airflow/airflow)"
 
 ## 基本操作
+init-airflow:
+	@echo "$(BLUE)🔨 初始化資料庫...$(RESET)"
+	docker-compose up airflow-init
+	@echo "$(GREEN)✅ 初始化完成！$(RESET)"
+
 up:
 	@echo "$(BLUE)🚀 啟動 Airflow...$(RESET)"
 	AIRFLOW_UID=$(AIRFLOW_UID) docker-compose up -d
@@ -55,6 +61,10 @@ restart: down up
 logs:
 	@echo "$(BLUE)📋 查看日誌...$(RESET)"
 	docker-compose logs -f
+
+logs-apiserver:
+	@echo "$(BLUE)📋 查看 Apiserver 日誌...$(RESET)"
+	docker-compose logs -f airflow-apiserver
 
 logs-scheduler:
 	@echo "$(BLUE)📋 查看 Scheduler 日誌...$(RESET)"
