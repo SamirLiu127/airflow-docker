@@ -51,6 +51,18 @@ up:
 	@echo "$(GREEN)✅ 啟動完成！$(RESET)"
 	@echo "📱 Web UI: http://localhost:8080"
 
+up-dev:
+	@echo "$(BLUE)🚀 啟動 Airflow...$(RESET)"
+	AIRFLOW_UID=$(AIRFLOW_UID) docker-compose --env-file .env.dev up -d
+	@echo "$(GREEN)✅ 啟動完成！$(RESET)"
+	@echo "📱 Web UI: http://localhost:8080"
+
+up-flower:
+	@echo "$(BLUE)🚀 啟動 Flower...$(RESET)"
+	AIRFLOW_UID=$(AIRFLOW_UID) docker-compose up -d flower
+	@echo "$(GREEN)✅ 啟動完成！$(RESET)"
+	@echo "📱 Flower: http://localhost:5555"
+
 down:
 	@echo "$(BLUE)⏹️  停止服務...$(RESET)"
 	docker-compose down
@@ -109,7 +121,7 @@ clean:
 	@echo "$(GREEN)✅ 清理完成$(RESET)"
 
 ## 快速啟動
-quickstart: build up
+quickstart: build init-airflow up
 	@echo "$(GREEN)🎉 快速啟動完成！$(RESET)"
 	@echo "等待服務啟動..."
 	@sleep 30

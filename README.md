@@ -26,7 +26,7 @@ mkdir -p ./dags ./logs ./plugins ./config
 
 ### 3. 設置環境變數
 ```bash
-echo -e "AIRFLOW_UID=$(id -u)\nAIRFLOW_GID=0" > .env
+cp .env.example .env
 ```
 
 ### 4. 一鍵啟動
