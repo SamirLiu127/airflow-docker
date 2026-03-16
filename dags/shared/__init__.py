@@ -1,1 +1,0 @@
-# Shared module for data mining airflow project
