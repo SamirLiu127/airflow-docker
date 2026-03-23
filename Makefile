@@ -19,3 +19,15 @@ restart: down up
 
 clean:
 	docker-compose down --volumes --rmi all
+
+import-variables:
+	docker compose run airflow-cli airflow variables import config/variables.json
+
+import-connections:
+	docker compose run airflow-cli airflow connections import config/connections.json
+
+export-variables:
+	docker compose run airflow-cli airflow variables export config/variables.json
+
+export-connections:
+	docker compose run airflow-cli airflow connections export config/connections.json
